@@ -9,6 +9,8 @@ export const categories: readonly Category[] = [
 	{ name: 'Pendants & Charms', slug: 'pendants-charms', image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476b?q=80&w=1200&auto=format&fit=crop' },
 	{ name: 'Personalized Jewelry', slug: 'personalized', image: 'https://images.unsplash.com/photo-1543294001-f7cd5d7fb516?q=80&w=1200&auto=format&fit=crop' },
 	{ name: 'Religious & Gift Items', slug: 'religious-gifts', image: 'https://images.unsplash.com/photo-1541542684-4a798dd0ef1a?q=80&w=1200&auto=format&fit=crop' },
+	{ name: 'Kada', slug: 'kada', image: 'https://images.unsplash.com/photo-1541542684-4a798dd0ef1a?q=80&w=1200&auto=format&fit=crop' },
+	{ name: 'Aesthetic Jewellery', slug: 'aesthetic-jewellery', image: 'https://images.unsplash.com/photo-1541542684-4a798dd0ef1a?q=80&w=1200&auto=format&fit=crop' },
 ]
 
 

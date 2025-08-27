@@ -10,6 +10,8 @@ const categories = [
 	{ name: 'Pendants & Charms', slug: 'pendants-charms' },
 	{ name: 'Personalized Jewelry', slug: 'personalized' },
 	{ name: 'Religious & Gift Items', slug: 'religious-gifts' },
+  { name: 'Kada', slug: 'kada'  },
+	{ name: 'Aesthetic Jewellery', slug: 'aesthetic-jewellery'}
 ]
 
 export function MegaMenu() {
