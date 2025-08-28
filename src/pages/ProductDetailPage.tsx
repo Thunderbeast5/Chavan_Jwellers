@@ -17,7 +17,7 @@ export function ProductDetailPage() {
 
   function waLink(name: string, price: number) {
     const text = encodeURIComponent(`Hi, I'm interested in buying "${name}" priced at ₹${price}.`)
-    return `https://wa.me/919876543210?text=${text}`
+    return `https://wa.me/919730170189?text=${text}`
   }
 
   if (!product) return <div className="container-px max-w-7xl mx-auto py-10">Product not found</div>

@@ -3,8 +3,8 @@ import { db } from '../../firebase'
 import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore'
 import type { AdminProduct } from '../../lib/adminTypes'
 
-const CLOUDINARY_CLOUD_NAME = 'dh4xushgf'
-const CLOUDINARY_UPLOAD_PRESET = 'Chavan Jewellers'
+const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
+const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
 
 export function ProductsAdmin() {
 	const [items, setItems] = useState<AdminProduct[]>([])

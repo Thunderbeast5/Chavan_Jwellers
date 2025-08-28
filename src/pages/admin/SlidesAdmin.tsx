@@ -4,8 +4,8 @@ import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore'
 
 type Slide = { image: string; alt?: string; link?: string; id?: string }
 
-const CLOUDINARY_CLOUD_NAME = 'dh4xushgf'
-const CLOUDINARY_UPLOAD_PRESET = 'Chavan Jewellers'
+const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
+const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
 
 export function SlidesAdmin() {
 	const [items, setItems] = useState<Slide[]>([])
