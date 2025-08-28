@@ -1,6 +1,6 @@
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import type { Product } from '../store/data.ts'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { fetchProducts } from '../lib/catalog'
 
 export function ProductListPage(props: { bestseller?: boolean; newest?: boolean }) {
