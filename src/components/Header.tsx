@@ -1,24 +1,31 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-// import { FaFacebookF, FaInstagram, FaYoutube, FaPinterestP, FaSearch } from 'react-icons/fa'
-import {FaSearch} from 'react-icons/fa'
+import { FaSearch } from 'react-icons/fa'
+import { SiGoogledrive } from "react-icons/si";
+// import {FaSearch} from 'react-icons/fa'
 import { MegaMenu } from './MegaMenu'
 
 export function Header() {
 	const navigate = useNavigate()
 	return (
 		<header className="border-b border-gray-200">
-			{/* <div className="bg-gray-50 text-gray-600 text-sm">
+			<div className="bg-gray-50 text-gray-600 text-sm">
 				<div className="container-px max-w-7xl mx-auto flex items-center justify-between h-10">
 					<div className="flex items-center gap-4">
-						<a href="#" aria-label="Facebook" className="hover:text-amber-700"><FaFacebookF /></a>
-						<a href="#" aria-label="Instagram" className="hover:text-amber-700"><FaInstagram /></a>
-						<a href="#" aria-label="YouTube" className="hover:text-amber-700"><FaYoutube /></a>
-						<a href="#" aria-label="Pinterest" className="hover:text-amber-700"><FaPinterestP /></a>
+						
+						<a 
+							href="https://drive.google.com/your-catalog-link"
+							target="_blank" 
+							rel="noopener noreferrer"
+							className="flex items-center gap-2 hover:text-amber-700"
+						>
+							<SiGoogledrive className="w-4 h-4" />
+							
+						</a>
 					</div>
-					<p className="hidden sm:block">Welcome to our store.</p>
+					<p className="hidden sm:block">Browse Our Catalog</p>
 					<div className="w-16" />
 				</div>
-			</div> */}
+			</div>
 
 			<div className="container-px max-w-7xl mx-auto flex items-center justify-between h-20">
 				<Link to="/" className="text-3xl font-gotu tracking-wide">चव्हाण ज्वेलर्स</Link>

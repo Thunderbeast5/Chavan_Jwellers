@@ -1,21 +1,31 @@
 import { useParams } from 'react-router-dom'
-import { products, type Product } from '../store/data.ts'
+import type { Product } from '../store/data.ts'
+import { useEffect, useState } from 'react'
+import { fetchProducts } from '../lib/catalog'
 
 export function ProductDetailPage() {
   const { id } = useParams()
-  const product: Product | undefined = products.find((p: Product) => String(p.id) === id)
+  const [all, setAll] = useState<Product[]>([])
+  const [product, setProduct] = useState<Product | undefined>()
 
-  if (!product) return <div className="container-px max-w-7xl mx-auto py-10">Product not found</div>
+  useEffect(() => { fetchProducts().then(setAll) }, [])
+  useEffect(() => {
+    if (!id) return
+    const p = all.find(p => String(p.id) === id) || all.find(p => p.name.replace(/\s+/g,'-').toLowerCase() === id)
+    setProduct(p)
+  }, [id, all])
 
   function waLink(name: string, price: number) {
     const text = encodeURIComponent(`Hi, I'm interested in buying "${name}" priced at ₹${price}.`)
-    return `https://wa.me/919730170189?text=${text}`
+    return `https://wa.me/919876543210?text=${text}`
   }
+
+  if (!product) return <div className="container-px max-w-7xl mx-auto py-10">Product not found</div>
 
   return (
     <div className="container-px max-w-7xl mx-auto py-10 grid grid-cols-1 md:grid-cols-2 gap-10">
       <div className="space-y-4">
-        {product.images.map(src => (
+        {product.images?.map(src => (
           <img key={src} src={src} alt={product.name} className="w-full rounded-md" />
         ))}
       </div>

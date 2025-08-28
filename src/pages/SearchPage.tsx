@@ -1,7 +1,6 @@
-import { useMemo } from 'react'
+import { useMemo, useEffect, useState } from 'react'
 import { Link,  useSearchParams } from 'react-router-dom'
-import { products } from '../store/data'
-import { categories } from '../data/categories'
+import { fetchProducts, fetchCategories } from '../lib/catalog'
 import type { Product } from '../data/types'
 
 function useQueryParams() {
@@ -28,21 +27,51 @@ function matchProduct(p: Product, q: string) {
 
 export function SearchPage() {
 	const { q, cat, set } = useQueryParams()
+	const [products, setProducts] = useState<Product[]>([])
+	const [categories, setCategories] = useState<{ name: string; slug: string }[]>([])
+	const [loading, setLoading] = useState(true)
+
+	useEffect(() => {
+		async function loadData() {
+			try {
+				const [prods, cats] = await Promise.all([
+					fetchProducts(),
+					fetchCategories()
+				])
+				setProducts(prods)
+				setCategories(cats.map(c => ({ name: c.name, slug: c.slug })))
+			} catch (error) {
+				console.error('Failed to load search data:', error)
+			} finally {
+				setLoading(false)
+			}
+		}
+		loadData()
+	}, [])
 
 	const filtered: Product[] = useMemo(() => {
 		let list = products
 		if (cat !== 'all') list = list.filter((p) => p.category === cat)
 		return list.filter((p) => matchProduct(p, q))
-	}, [q, cat])
+	}, [q, cat, products])
 
 	const related: Product[] = useMemo(() => {
 		if (filtered.length > 0) return []
 		let list = products
 		if (cat !== 'all') list = list.filter((p) => p.category === cat)
 		// show popular (bestsellers) in selected category if query misses
-		const best = list.filter((p) => p.tags.includes('bestseller'))
+		const best = list.filter((p) => p.tags?.includes('bestseller'))
 		return best.length > 0 ? best.slice(0, 8) : list.slice(0, 8)
-	}, [filtered, cat])
+	}, [filtered, cat, products])
+
+	if (loading) {
+		return (
+			<div className="container-px max-w-7xl mx-auto py-8">
+				<h1 className="section-title mb-6">Search</h1>
+				<div className="text-center text-gray-600">Loading...</div>
+			</div>
+		)
+	}
 
 	return (
 		<div className="container-px max-w-7xl mx-auto py-8">
@@ -71,7 +100,7 @@ export function SearchPage() {
 					{filtered.map((p) => (
 						<Link key={p.id} to={`/product/${p.id}`} className="product-card">
 							<div className="aspect-square bg-muted overflow-hidden">
-								<img src={p.images[0]} alt={p.name} />
+								<img src={p.images?.[0]} alt={p.name} />
 							</div>
 							<div className="p-3">
 								<div className="text-sm text-gray-700">{p.name}</div>
@@ -87,7 +116,7 @@ export function SearchPage() {
 						{related.map((p) => (
 							<Link key={p.id} to={`/product/${p.id}`} className="product-card">
 								<div className="aspect-square bg-muted overflow-hidden">
-									<img src={p.images[0]} alt={p.name} />
+									<img src={p.images?.[0]} alt={p.name} />
 								</div>
 								<div className="p-3">
 									<div className="text-sm text-gray-700">{p.name}</div>

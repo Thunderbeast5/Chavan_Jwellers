@@ -1,14 +1,19 @@
 import { Link, useParams, useSearchParams } from 'react-router-dom'
-import { products, type Product } from '../store/data.ts'
+import type { Product } from '../store/data.ts'
+import { useEffect, useMemo, useState } from 'react'
+import { fetchProducts } from '../lib/catalog'
 
 export function ProductListPage(props: { bestseller?: boolean; newest?: boolean }) {
   const params = useParams()
   const [searchParams, setSearchParams] = useSearchParams()
   const sort = (searchParams.get('sort') || 'relevance') as 'relevance' | 'price-asc' | 'price-desc'
+  const [all, setAll] = useState<Product[]>([])
 
-  let list: Product[] = products
+  useEffect(() => { fetchProducts().then(setAll) }, [])
+
+  let list: Product[] = all
   if (params.slug) list = list.filter((p) => p.category === params.slug)
-  if (props.bestseller) list = list.filter((p) => p.tags.includes('bestseller'))
+  if (props.bestseller) list = list.filter((p) => p.tags?.includes('bestseller'))
   if (props.newest) list = list.slice().reverse()
 
   if (sort === 'price-asc') list = list.slice().sort((a, b) => a.price - b.price)
@@ -31,9 +36,9 @@ export function ProductListPage(props: { bestseller?: boolean; newest?: boolean 
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {list.map((p) => (
-          <Link key={p.id} to={`/product/${p.id}`} className="block">
+          <Link key={p.name + String(p.price)} to={`/product/${p.id ?? ''}`} className="block">
             <div className="aspect-square bg-muted rounded-md overflow-hidden">
-              <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover transition" />
+              <img src={p.images?.[0]} alt={p.name} className="w-full h-full object-cover transition" />
             </div>
             <div className="mt-3">
               <div className="text-sm text-gray-700">{p.name}</div>

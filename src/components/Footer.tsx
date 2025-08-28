@@ -12,19 +12,19 @@ export function Footer() {
           <h4 className="font-semibold mb-3">Info</h4>
           <ul className="space-y-2">
             <li><Link to="/about" className="hover:text-amber-700">About Us</Link></li>
-            <li><Link to="#" className="hover:text-amber-700">Brand Story</Link></li>
-            <li><Link to="#" className="hover:text-amber-700">Customer Reviews</Link></li>
-            <li><Link to="#" className="hover:text-amber-700">Blogs</Link></li>
-            <li><Link to="#" className="hover:text-amber-700">Bulk Inquiry</Link></li>
+            <li><Link to="/brand-story" className="hover:text-amber-700">Brand Story</Link></li>
+            <li><Link to="/customer-reviews" className="hover:text-amber-700">Customer Reviews</Link></li>
+            <li><Link to="/blogs" className="hover:text-amber-700">Blogs</Link></li>
+            <li><Link to="/bulk-inquiry" className="hover:text-amber-700">Bulk Inquiry</Link></li>
           </ul>
         </div>
         <div>
           <h4 className="font-semibold mb-3">Our Policy</h4>
           <ul className="space-y-2">
-            <li><Link to="#" className="hover:text-amber-700">Terms & Conditions</Link></li>
-            <li><Link to="#" className="hover:text-amber-700">FAQs</Link></li>
-            <li><Link to="#" className="hover:text-amber-700">Privacy Policy</Link></li>
-            <li><Link to="#" className="hover:text-amber-700">Return & Refund Policy</Link></li>
+            <li><Link to="/terms-conditions" className="hover:text-amber-700">Terms & Conditions</Link></li>
+            <li><Link to="/faqs" className="hover:text-amber-700">FAQs</Link></li>
+            <li><Link to="/privacy-policy" className="hover:text-amber-700">Privacy Policy</Link></li>
+            <li><Link to="/return-refund-policy" className="hover:text-amber-700">Return & Refund Policy</Link></li>
           </ul>
         </div>
         <div>

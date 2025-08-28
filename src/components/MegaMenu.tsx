@@ -1,22 +1,40 @@
 import { Link } from 'react-router-dom'
-import { useRef, useState } from 'react'
-
-const categories = [
-	{ name: 'Anklets & Payal', slug: 'anklets-payal' },
-	{ name: 'Bangles & Bracelets', slug: 'bangles-bracelets' },
-	{ name: 'Earrings', slug: 'earrings' },
-	{ name: 'Neckpieces', slug: 'neckpieces' },
-	{ name: 'Rings', slug: 'rings' },
-	{ name: 'Pendants & Charms', slug: 'pendants-charms' },
-	{ name: 'Personalized Jewelry', slug: 'personalized' },
-	{ name: 'Religious & Gift Items', slug: 'religious-gifts' },
-  { name: 'Kada', slug: 'kada'  },
-	{ name: 'Aesthetic Jewellery', slug: 'aesthetic-jewellery'}
-]
+import { useRef, useState, useEffect } from 'react'
+import { fetchCategories } from '../lib/catalog'
 
 export function MegaMenu() {
   const [open, setOpen] = useState(false)
+  const [categories, setCategories] = useState<{ name: string; slug: string; image?: string }[]>([])
+  const [loading, setLoading] = useState(true)
   const closeTimeout = useRef<number | null>(null)
+
+  useEffect(() => {
+    async function loadCategories() {
+      try {
+        const cats = await fetchCategories()
+        setCategories([...cats])
+      } catch (error) {
+        console.error('Failed to load categories:', error)
+        // Fallback to static categories if Firestore fails
+        setCategories([
+          { name: 'Anklets & Payal', slug: 'anklets-payal' },
+          { name: 'Bangles & Bracelets', slug: 'bangles-bracelets' },
+          { name: 'Earrings', slug: 'earrings' },
+          { name: 'Neckpieces', slug: 'neckpieces' },
+          { name: 'Rings', slug: 'rings' },
+          { name: 'Pendants & Charms', slug: 'pendants-charms' },
+          { name: 'Personalized Jewelry', slug: 'personalized' },
+          { name: 'Religious & Gift Items', slug: 'religious-gifts' },
+          { name: 'Kada', slug: 'kada' },
+          { name: 'Aesthetic Jewellery', slug: 'aesthetic-jewellery' }
+        ])
+      } finally {
+        setLoading(false)
+      }
+    }
+    
+    loadCategories()
+  }, [])
 
   const handleEnter = () => {
     if (closeTimeout.current) {
@@ -29,6 +47,16 @@ export function MegaMenu() {
   const handleLeave = () => {
     if (closeTimeout.current) window.clearTimeout(closeTimeout.current)
     closeTimeout.current = window.setTimeout(() => setOpen(false), 200)
+  }
+
+  if (loading) {
+    return (
+      <div className="relative">
+        <button className="hover:text-amber-700" disabled>
+          Shop By Category
+        </button>
+      </div>
+    )
   }
 
   return (

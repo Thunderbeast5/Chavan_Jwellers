@@ -1,18 +1,31 @@
 import { Link } from 'react-router-dom'
-import { categories } from '../store/data'
 import { HeroCarousel } from '../components/HeroCarousel'
-import { heroSlides, bestsellers as allBestsellers, newArrivals as allNewArrivals } from '../data/collections'
 import { RevealOnScroll } from '../components/RevealOnScroll'
-import { completedOrders } from '../data/completedOrders' // 1. Import the completed orders data
+import { useEffect, useState } from 'react'
+import { fetchCategories, fetchProducts, fetchSlides, fetchCompleted } from '../lib/catalog'
 
 export function HomePage() {
-  const bestsellers = allBestsellers.slice(0, 12)
+  const [cats, setCats] = useState<{ name: string; slug: string; image: string }[]>([])
+  const [bestsellers, setBestsellers] = useState<any[]>([])
+  const [newArrivals, setNewArrivals] = useState<any[]>([])
+  const [slides, setSlides] = useState<any[]>([])
+  const [completed, setCompleted] = useState<any[]>([])
+
+  useEffect(() => {
+    fetchCategories().then((v) => setCats(v as any))
+    fetchProducts().then((prods) => {
+      setBestsellers(prods.filter(p => p.tags?.includes('bestseller')).slice(0, 12))
+      setNewArrivals(prods.filter(p => p.tags?.includes('new')).slice(0, 12))
+    })
+    fetchSlides().then(setSlides)
+    fetchCompleted().then(setCompleted)
+  }, [])
 
   return (
     <div>
       {/* Hero */}
       <section className="relative">
-        <HeroCarousel images={heroSlides} />
+        <HeroCarousel images={slides.map(s => ({ src: s.image, alt: s.alt, ctaHref: s.link }))} />
       </section>
 
       {/* Promo */}
@@ -22,7 +35,7 @@ export function HomePage() {
       <section className="container-px max-w-7xl mx-auto py-12">
         <h3 className="section-title mb-6">Shop By Category</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-          {categories.slice(0, 10).map(c => (
+          {cats.slice(0, 6).map(c => (
             <RevealOnScroll key={c.slug}>
               <Link to={`/category/${c.slug}`} className="block">
                 <div className="aspect-[4/3] bg-muted rounded-md overflow-hidden">
@@ -40,10 +53,10 @@ export function HomePage() {
         <h3 className="section-title mb-6">Our Bestsellers</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {bestsellers.map(p => (
-            <RevealOnScroll key={p.id}>
-              <Link to={`/product/${p.id}`} className="block">
+            <RevealOnScroll key={p.name + String(p.price)}>
+              <Link to={`/product/${p.id ?? ''}`} className="block">
                 <div className="aspect-square bg-muted rounded-md overflow-hidden">
-                  <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover transition" />
+                  <img src={p.images?.[0]} alt={p.name} className="w-full h-full object-cover transition" />
                 </div>
                 <div className="mt-3">
                   <div className="text-sm text-gray-700">{p.name}</div>
@@ -59,11 +72,11 @@ export function HomePage() {
       <section className="container-px max-w-7xl mx-auto py-8">
         <h3 className="section-title mb-6">New Arrivals</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {allNewArrivals.slice(0, 12).map(p => (
-            <RevealOnScroll key={p.id}>
-              <Link to={`/product/${p.id}`} className="block">
+          {newArrivals.map(p => (
+            <RevealOnScroll key={p.name + String(p.price)}>
+              <Link to={`/product/${p.id ?? ''}`} className="block">
                 <div className="aspect-square bg-muted rounded-md overflow-hidden">
-                  <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover transition" />
+                  <img src={p.images?.[0]} alt={p.name} className="w-full h-full object-cover transition" />
                 </div>
                 <div className="mt-3">
                   <div className="text-sm text-gray-700">{p.name}</div>
@@ -75,32 +88,36 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* 2. Add the new Customer Reviews section */}
+      {/* Our Completed Orders */}
       <section className="container-px max-w-7xl mx-auto py-8">
-        <h3 className="section-title mb-6">What Our Customers Say</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {completedOrders.map(order => (
-            <RevealOnScroll key={order.id}>
-              <div className="bg-gray-50 border border-gray-200 p-6 rounded-lg flex flex-col h-full">
-                <div className="text-amber-500 mb-2" aria-label={`Rating: ${order.rating} out of 5 stars`}>
-                  {'★'.repeat(order.rating)}
-                  {'☆'.repeat(5 - order.rating)}
+        <h3 className="section-title mb-6">Our Completed Orders</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {completed.slice(0, 6).map(order => (
+            <RevealOnScroll key={order.customer + order.product}>
+              <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+                <div className="flex items-start gap-4">
+                  <img src={order.image} alt={order.product} className="w-16 h-16 rounded-lg object-cover" />
+                  <div className="flex-1">
+                    <div className="font-medium text-gray-900">{order.customer}</div>
+                    <div className="text-sm text-gray-600 mb-2">{order.product}</div>
+                    <div className="flex items-center gap-1 mb-2">
+                      {[...Array(order.rating || 5)].map((_, i) => (
+                        <span key={i} className="text-amber-500">★</span>
+                      ))}
+                    </div>
+                    <p className="text-sm text-gray-700 italic">"{order.review}"</p>
+                  </div>
                 </div>
-                <blockquote className="text-gray-700 italic flex-grow">
-                  "{order.review}"
-                </blockquote>
-                <footer className="mt-4">
-                  <p className="font-semibold text-gray-900">{order.customer}</p>
-                  <p className="text-sm text-gray-500">on {order.product}</p>
-                </footer>
               </div>
             </RevealOnScroll>
           ))}
         </div>
+        <div className="text-center mt-8">
+          <p className="text-gray-600 text-sm">Join thousands of satisfied customers who trust चव्हाण ज्वेलर्स for their jewelry needs</p>
+        </div>
       </section>
 
       {/* For Her / For Him */}
-      
     </div>
   )
 }
