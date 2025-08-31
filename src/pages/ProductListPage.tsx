@@ -22,12 +22,12 @@ export function ProductListPage(props: { bestseller?: boolean; newest?: boolean 
 
   return (
     <div className="container-px max-w-7xl mx-auto py-10">
-      <div className="mb-4 flex items-center justify-end">
-        <label className="mr-2 text-sm text-gray-600">Sort by</label>
+      <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2">
+        <label className="text-sm text-gray-600 sm:mr-2">Sort by</label>
         <select
           value={sort}
           onChange={(e) => setSearchParams((prev) => { prev.set('sort', e.target.value); return prev })}
-          className="border border-gray-300 rounded-md px-3 py-2 text-sm"
+          className="border border-gray-300 rounded-md px-3 py-2 text-sm w-full sm:w-auto"
         >
           <option value="relevance">Relevance</option>
           <option value="latest">Latest</option>
@@ -36,7 +36,7 @@ export function ProductListPage(props: { bestseller?: boolean; newest?: boolean 
         </select>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
         {list.map((p) => (
           <Link key={p.name + String(p.price)} to={`/product/${p.id ?? ''}`} className="block">
             <div className="bg-white rounded-lg border-2 border-amber-400 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">

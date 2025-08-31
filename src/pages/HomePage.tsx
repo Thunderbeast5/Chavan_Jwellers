@@ -34,13 +34,13 @@ export function HomePage() {
       {/* Featured Categories */}
       <section className="container-px max-w-7xl mx-auto py-12">
         <h3 className="section-title mb-6">Shop By Category</h3>
-        <div className="flex gap-6 overflow-x-auto scrollbar-hide pb-4">
+        <div className="flex gap-4 md:gap-6 overflow-x-auto scrollbar-hide pb-4">
           {cats.slice(0, 6).map(c => (
             <RevealOnScroll key={c.slug}>
-              <Link to={`/category/${c.slug}`} className="block flex-shrink-0 w-64 h-80">
+              <Link to={`/category/${c.slug}`} className="block flex-shrink-0 w-48 md:w-64 h-64 md:h-80">
                 <div className="relative group w-full h-full">
                   {/* Flip container - only for the image area */}
-                  <div className="relative w-full h-64 transition-transform duration-500 transform-style-preserve-3d group-hover:rotate-y-180">
+                  <div className="relative w-full h-48 md:h-64 transition-transform duration-500 transform-style-preserve-3d group-hover:rotate-y-180">
                     {/* Front of image */}
                     <div className="absolute inset-0 backface-hidden">
                       <div className="w-full h-full bg-muted rounded-lg overflow-hidden">
@@ -70,7 +70,7 @@ export function HomePage() {
       <section className="container-px max-w-7xl mx-auto py-4">
         <h3 className="section-title mb-6">Our Bestsellers</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {bestsellers.map(p => (
+          {bestsellers.slice(0, 4).map(p => (
             <RevealOnScroll key={p.name + String(p.price)}>
               <Link to={`/product/${p.id ?? ''}`} className="block">
                 <div className="aspect-square bg-muted rounded-md overflow-hidden">
@@ -84,13 +84,26 @@ export function HomePage() {
             </RevealOnScroll>
           ))}
         </div>
+        {bestsellers.length > 4 && (
+          <div className="text-center mt-8">
+            <Link 
+              to="/bestsellers" 
+              className="inline-flex items-center px-6 py-3 bg-[#4b0e55] text-white font-semibold rounded-lg hover:bg-[#6b1f75] transition-colors duration-300 shadow-lg hover:shadow-xl"
+            >
+              See More Bestsellers
+              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+          </div>
+        )}
       </section>
 
       {/* New Arrivals */}
       <section className="container-px max-w-7xl mx-auto py-8">
         <h3 className="section-title mb-6">New Arrivals</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {newArrivals.map(p => (
+          {newArrivals.slice(0, 4).map(p => (
             <RevealOnScroll key={p.name + String(p.price)}>
               <Link to={`/product/${p.id ?? ''}`} className="block">
                 <div className="aspect-square bg-muted rounded-md overflow-hidden">
@@ -104,13 +117,26 @@ export function HomePage() {
             </RevealOnScroll>
           ))}
         </div>
+        {newArrivals.length > 4 && (
+          <div className="text-center mt-8">
+            <Link 
+              to="/new-arrivals" 
+              className="inline-flex items-center px-6 py-3 bg-[#4b0e55] text-white font-semibold rounded-lg hover:bg-[#6b1f75] transition-colors duration-300 shadow-lg hover:shadow-xl"
+            >
+              See More New Arrivals
+              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+          </div>
+        )}
       </section>
 
       {/* Our Completed Orders */}
       <section className="container-px max-w-7xl mx-auto py-8">
         <h3 className="section-title mb-6">Our Completed Orders</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {completed.slice(0, 6).map(order => (
+          {completed.slice(0, 4).map(order => (
             <RevealOnScroll key={order.customer + order.product}>
               <div className="bg-white rounded-xl border-2 border-amber-400 shadow-sm p-6 hover:shadow-md transition-all duration-300">
                 <div className="flex items-start gap-4">
@@ -130,6 +156,19 @@ export function HomePage() {
             </RevealOnScroll>
           ))}
         </div>
+        {completed.length > 4 && (
+          <div className="text-center mt-8">
+            <Link 
+              to="/customer-reviews" 
+              className="inline-flex items-center px-6 py-3 bg-[#4b0e55] text-white font-semibold rounded-lg hover:bg-[#6b1f75] transition-colors duration-300 shadow-lg hover:shadow-xl"
+            >
+              See More Reviews
+              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+          </div>
+        )}
         <div className="text-center mt-8">
           <p className="text-gray-600 text-sm">Join thousands of satisfied customers who trust Chavan Jewellers for their jewelry needs</p>
         </div>

@@ -62,7 +62,7 @@ export function MegaMenu() {
         Shop By Category
       </button>
       {open && (
-        <div className="absolute left-1/2 -translate-x-1/2 top-full pt-4 w-80 z-50">
+        <div className="absolute left-1/2 -translate-x-1/2 top-full pt-4 w-80 z-50 max-h-96 overflow-y-auto">
           <div className="bg-gradient-to-br from-[#4b0e55] to-[#6b1f75] rounded-lg shadow-xl border border-amber-200 p-4">
                           <div className="space-y-1">
                 {categories.map((c) => (
