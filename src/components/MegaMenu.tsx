@@ -52,7 +52,7 @@ export function MegaMenu() {
   if (loading) {
     return (
       <div className="relative">
-        <button className="hover:text-amber-700" disabled>
+        <button className="hover:text-amber-200 text-white" disabled>
           Shop By Category
         </button>
       </div>
@@ -62,7 +62,7 @@ export function MegaMenu() {
   return (
     <div className="relative" onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
       <button
-        className="hover:text-[#4b0e55] transition-colors px-2 py-1 rounded"
+        className="hover:text-amber-200 transition-colors px-2 py-1 rounded text-white"
         aria-haspopup="true"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
