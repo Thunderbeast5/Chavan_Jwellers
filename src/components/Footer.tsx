@@ -76,9 +76,7 @@ export function Footer() {
                 <span>Admin Login</span>
               </Link>
             </li>
-            <li className="text-xs text-amber-100 mt-3">
-              Access to manage products, categories, and content
-            </li>
+g
           </ul>
         </div>
       </div>

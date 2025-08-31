@@ -38,7 +38,7 @@ export function CustomerReviewsPage() {
       <RevealOnScroll>
         <div className="text-center mb-12">
           <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-            Read what our valued customers have to say about their experience with Chavan Jewellers. 
+            Read what our valued customers have to say about their experience with चव्हाण ज्वेलर्स. 
             We're proud to share their stories and feedback.
           </p>
         </div>

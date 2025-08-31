@@ -28,7 +28,7 @@ export function Header() {
 			<div className="container-px max-w-7xl mx-auto flex items-center justify-between h-20">
 				<Link to="/" className="flex items-center gap-3 -ml-8 group">
 					<img src={Logo} alt="Chavan Jewellers" className="h-16 w-auto transition-transform group-hover:scale-105" />
-					<span className="text-3xl font-gotu tracking-wide text-white group-hover:text-amber-200 transition-colors">Chavan Jewellers</span>
+					<span className="text-3xl font-gotu tracking-wide text-amber-200 group-hover:text-amber-200 transition-colors">Chavan Jewellers</span>
 				</Link>
 
 				<nav className="hidden md:flex items-center gap-8 text-sm">
@@ -38,7 +38,7 @@ export function Header() {
 					</div>
 					<NavLink to="/new-arrivals" className={({isActive}) => isActive ? 'text-amber-300 font-semibold' : 'text-white hover:text-amber-200 transition-colors'}>New Arrivals</NavLink>
 					<NavLink to="/bestsellers" className={({isActive}) => isActive ? 'text-amber-300 font-semibold' : 'text-white hover:text-amber-200 transition-colors'}>Bestsellers</NavLink>
-					<NavLink to="/about" className={({isActive}) => isActive ? 'text-amber-300 font-semibold' : 'text-white hover:text-amber-200 transition-colors'}>About Us</NavLink>
+					<NavLink to="/customer-reviews" className={({isActive}) => isActive ? 'text-amber-300 font-semibold' : 'text-white hover:text-amber-200 transition-colors'}>Reviews</NavLink>
 				</nav>
 
 				<div className="flex items-center gap-5 text-white">

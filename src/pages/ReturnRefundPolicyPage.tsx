@@ -12,7 +12,7 @@ export function ReturnRefundPolicyPage() {
           <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-8">
             <h2 className="text-2xl font-semibold mb-4 text-gray-900">Overview</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
-              At Chavan Jewellers, we are committed to ensuring your complete satisfaction with every purchase. 
+              At चव्हाण ज्वेलर्स (Chavan Jewellers), we are committed to ensuring your complete satisfaction with every purchase. 
               This policy outlines our return and refund procedures for all jewelry items.
             </p>
             <p className="text-gray-700 leading-relaxed">
@@ -161,7 +161,7 @@ export function ReturnRefundPolicyPage() {
             <div className="space-y-4 text-gray-700 leading-relaxed">
               <p>To initiate a return or exchange, please contact us:</p>
               <div className="bg-gray-50 rounded-lg p-4">
-                <p><strong>Chavan Jewellers</strong></p>
+                <p><strong>चव्हाण ज्वेलर्स</strong></p>
                 <p>Saraf Bazar, 1023 Gatne Wada, Behind Laxmi Tower, Nashik</p>
                 <p>Phone: +91-97301-70189</p>
                 <p>Email: support@chavanjwellers.com</p>

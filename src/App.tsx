@@ -21,10 +21,12 @@ import { ProductsAdmin } from './pages/admin/ProductsAdmin'
 import { CategoriesAdmin } from './pages/admin/CategoriesAdmin'
 import { SlidesAdmin } from './pages/admin/SlidesAdmin'
 import { CompletedOrdersAdmin } from './pages/admin/CompletedOrdersAdmin'
+import { ScrollToTop } from './components/ScrollToTop.tsx'
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<HomePage />} />
