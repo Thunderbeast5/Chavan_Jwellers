@@ -62,7 +62,7 @@ export function MegaMenu() {
   return (
     <div className="relative" onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
       <button
-        className="hover:text-amber-700"
+        className="hover:text-[#4b0e55] transition-colors px-2 py-1 rounded"
         aria-haspopup="true"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
@@ -70,17 +70,15 @@ export function MegaMenu() {
         Shop By Category
       </button>
       <div
-        onMouseEnter={handleEnter}
-        onMouseLeave={handleLeave}
-        className={`absolute left-1/2 -translate-x-1/2 top-full pt-2 w-[720px] z-50 ${open ? '' : ''}`}
+        className={`absolute left-1/2 -translate-x-1/2 top-full pt-4 w-[720px] z-50 ${open ? '' : ''}`}
       >
         <div
-          className={`bg-white shadow-soft border border-gray-100 rounded-md p-6 grid grid-cols-2 gap-4 transition ${
-            open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          className={`bg-white shadow-soft border border-gray-100 rounded-md p-6 grid grid-cols-2 gap-4 transition-all duration-200 ${
+            open ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none -translate-y-2'
           }`}
         >
           {categories.map((c) => (
-            <Link key={c.slug} to={`/category/${c.slug}`} className="hover:text-amber-700">
+            <Link key={c.slug} to={`/category/${c.slug}`} className="hover:text-[#4b0e55] transition-colors py-2 px-3 rounded hover:bg-gray-50">
               {c.name}
             </Link>
           ))}

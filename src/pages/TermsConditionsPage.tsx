@@ -12,7 +12,7 @@ export function TermsConditionsPage() {
           <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-8">
             <h2 className="text-2xl font-semibold mb-4 text-gray-900">1. Acceptance of Terms</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
-              By accessing and using the चव्हाण ज्वेलर्स (Chavan Jewellers) website, you accept and agree to be bound by the terms and provision of this agreement.
+              By accessing and using the Chavan Jewellers website, you accept and agree to be bound by the terms and provision of this agreement.
             </p>
             <p className="text-gray-700 leading-relaxed">
               If you do not agree to abide by the above, please do not use this service.
@@ -107,7 +107,7 @@ export function TermsConditionsPage() {
             <h2 className="text-2xl font-semibold mb-4 text-gray-900">7. Limitation of Liability</h2>
             <div className="space-y-4 text-gray-700 leading-relaxed">
               <p>
-                चव्हाण ज्वेलर्स shall not be liable for any indirect, incidental, special, consequential, or punitive damages.
+                Chavan Jewellers shall not be liable for any indirect, incidental, special, consequential, or punitive damages.
               </p>
               <p>
                 Our total liability shall not exceed the amount paid for the specific product in question.
@@ -124,7 +124,7 @@ export function TermsConditionsPage() {
                 For any questions regarding these terms and conditions, please contact us:
               </p>
               <div className="bg-gray-50 rounded-lg p-4">
-                <p><strong>चव्हाण ज्वेलर्स</strong></p>
+                <p><strong>Chavan Jewellers</strong></p>
                 <p>Saraf Bazar, 1023 Gatne Wada, Behind Laxmi Tower, Nashik</p>
                 <p>Phone: +91-97301-70189</p>
                 <p>Email: support@chavanjwellers.com</p>

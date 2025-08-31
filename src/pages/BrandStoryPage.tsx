@@ -12,7 +12,7 @@ export function BrandStoryPage() {
           <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-8">
             <h2 className="text-2xl font-semibold mb-4 text-gray-900">A Legacy of Excellence</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
-              चव्हाण ज्वेलर्स (Chavan Jewellers) has been a trusted name in the jewelry industry for generations. 
+              Chavan Jewellers has been a trusted name in the jewelry industry for generations. 
               Our journey began with a simple vision: to create beautiful, high-quality silver jewelry that celebrates 
               tradition while embracing modern design sensibilities.
             </p>

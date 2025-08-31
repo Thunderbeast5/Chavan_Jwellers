@@ -39,21 +39,21 @@ export function HeroCarousel({ images, intervalMs = 5000 }: HeroCarouselProps) {
       </div>
 
       {/* Controls */}
-      <button aria-label="Previous" onClick={prev} className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white text-gray-900 rounded-full w-10 h-10 grid place-items-center shadow">
+      <button aria-label="Previous" onClick={prev} className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-[#4b0e55] rounded-full w-12 h-12 grid place-items-center shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110">
         ‹
       </button>
-      <button aria-label="Next" onClick={next} className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white text-gray-900 rounded-full w-10 h-10 grid place-items-center shadow">
+      <button aria-label="Next" onClick={next} className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-[#4b0e55] rounded-full w-12 h-12 grid place-items-center shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110">
         ›
       </button>
 
       {/* Dots */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3">
         {images.map((_, i) => (
           <button
             key={i}
             aria-label={`Go to slide ${i + 1}`}
             onClick={() => goTo(i)}
-            className={`h-2 rounded-full transition ${i === index ? 'bg-white w-6' : 'bg-white/60 w-2'}`}
+            className={`h-3 rounded-full transition-all duration-300 ${i === index ? 'bg-[#4b0e55] w-8 shadow-lg' : 'bg-white/80 w-3 hover:bg-white'}`}
           />
         ))}
       </div>

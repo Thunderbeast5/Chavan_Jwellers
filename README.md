@@ -1,4 +1,4 @@
-# चव्हाण ज्वेलर्स (Chavan Jewellers) - E-commerce Website
+# Chavan Jewellers - E-commerce Website
 
 A modern, responsive e-commerce website for Chavan Jewellers, built with React, TypeScript, and Vite. Features a comprehensive admin dashboard for managing products, categories, and content.
 

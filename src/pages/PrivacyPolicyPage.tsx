@@ -12,7 +12,7 @@ export function PrivacyPolicyPage() {
           <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-8">
             <h2 className="text-2xl font-semibold mb-4 text-gray-900">Introduction</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
-              चव्हाण ज्वेलर्स (Chavan Jewellers) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you visit our website or interact with us.
+              Chavan Jewellers is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you visit our website or interact with us.
             </p>
             <p className="text-gray-700 leading-relaxed">
               By using our services, you agree to the collection and use of information in accordance with this policy.
@@ -164,7 +164,7 @@ export function PrivacyPolicyPage() {
             <div className="space-y-4 text-gray-700 leading-relaxed">
               <p>If you have any questions about this Privacy Policy, please contact us:</p>
               <div className="bg-gray-50 rounded-lg p-4">
-                <p><strong>चव्हाण ज्वेलर्स</strong></p>
+                <p><strong>Chavan Jewellers</strong></p>
                 <p>Saraf Bazar, 1023 Gatne Wada, Behind Laxmi Tower, Nashik</p>
                 <p>Phone: +91-97301-70189</p>
                 <p>Email: support@chavanjwellers.com</p>

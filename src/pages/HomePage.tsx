@@ -38,10 +38,16 @@ export function HomePage() {
           {cats.slice(0, 6).map(c => (
             <RevealOnScroll key={c.slug}>
               <Link to={`/category/${c.slug}`} className="block">
-                <div className="aspect-[4/3] bg-muted rounded-md overflow-hidden">
-                  <img src={c.image} alt={c.name} className="w-full h-full object-cover transition" />
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-md"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <button className="btn-primary w-full">Explore Category</button>
+                  </div>
+                  <div className="aspect-[4/3] bg-muted rounded-md overflow-hidden">
+                    <img src={c.image} alt={c.name} className="w-full h-full object-cover transition" />
+                  </div>
+                  <div className="mt-3 text-center">{c.name}</div>
                 </div>
-                <div className="mt-3 text-center">{c.name}</div>
               </Link>
             </RevealOnScroll>
           ))}
@@ -113,7 +119,7 @@ export function HomePage() {
           ))}
         </div>
         <div className="text-center mt-8">
-          <p className="text-gray-600 text-sm">Join thousands of satisfied customers who trust चव्हाण ज्वेलर्स for their jewelry needs</p>
+          <p className="text-gray-600 text-sm">Join thousands of satisfied customers who trust Chavan Jewellers for their jewelry needs</p>
         </div>
       </section>
 
