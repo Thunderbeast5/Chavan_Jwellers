@@ -76,7 +76,7 @@ export function Footer() {
                 <span>Admin Login</span>
               </Link>
             </li>
-g
+
           </ul>
         </div>
       </div>
