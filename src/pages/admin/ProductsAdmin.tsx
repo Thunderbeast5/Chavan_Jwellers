@@ -10,6 +10,8 @@ export function ProductsAdmin() {
 	const [items, setItems] = useState<AdminProduct[]>([])
 	const [loading, setLoading] = useState(true)
 	const [form, setForm] = useState<AdminProduct>({ name: '', description: '', price: 0, mrp: 0, category: '', tags: [], images: [] })
+	const [bulletPoints, setBulletPoints] = useState<string[]>([''])
+	const [useRichDescription, setUseRichDescription] = useState(false)
 	const [uploading, setUploading] = useState(false)
 	const [error, setError] = useState<string | null>(null)
 	const [categories, setCategories] = useState<{ name: string; slug: string }[]>([])
@@ -78,13 +80,38 @@ export function ProductsAdmin() {
 		}
 	}
 
+	function addBulletPoint() {
+		setBulletPoints([...bulletPoints, ''])
+	}
+
+	function removeBulletPoint(index: number) {
+		setBulletPoints(bulletPoints.filter((_, i) => i !== index))
+	}
+
+	function updateBulletPoint(index: number, value: string) {
+		const updated = [...bulletPoints]
+		updated[index] = value
+		setBulletPoints(updated)
+	}
+
+	function generateDescription() {
+		if (useRichDescription && bulletPoints.some(bp => bp.trim())) {
+			const validBullets = bulletPoints.filter(bp => bp.trim())
+			return validBullets.map(bp => `• ${bp.trim()}`).join('\n')
+		}
+		return form.description
+	}
+
 	async function onAdd(e: React.FormEvent) {
 		e.preventDefault()
 		setError(null)
 		try {
-			const payload = { ...form, createdAt: Date.now() }
+			const finalDescription = generateDescription()
+			const payload = { ...form, description: finalDescription, createdAt: Date.now() }
 			await addDoc(collection(db, 'products'), payload as any)
 			setForm({ name: '', description: '', price: 0, mrp: 0, category: categories[0]?.slug || '', tags: [], images: [] })
+			setBulletPoints([''])
+			setUseRichDescription(false)
 			setImageUrlsInput('')
 			await load()
 		} catch (err: any) {
@@ -114,7 +141,75 @@ export function ProductsAdmin() {
 					</div>
 					<div>
 						<label className="block text-sm text-gray-600 mb-1">Description</label>
-						<textarea className="w-full border border-gray-300 rounded-md px-3 py-2" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} required />
+						<div className="space-y-3">
+							<div className="flex gap-2">
+								<button
+									type="button"
+									onClick={() => setUseRichDescription(false)}
+									className={`px-3 py-1 text-sm rounded ${!useRichDescription ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+								>
+									Plain Text
+								</button>
+								<button
+									type="button"
+									onClick={() => setUseRichDescription(true)}
+									className={`px-3 py-1 text-sm rounded ${useRichDescription ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+								>
+									Bullet Points
+								</button>
+							</div>
+							
+							{!useRichDescription ? (
+								<textarea 
+									className="w-full border border-gray-300 rounded-md px-3 py-2" 
+									value={form.description} 
+									onChange={(e) => setForm({ ...form, description: e.target.value })} 
+									required 
+									rows={4}
+									placeholder="Enter product description..."
+								/>
+							) : (
+								<div className="space-y-2">
+									<label className="block text-xs text-gray-500">Add bullet points for product features:</label>
+									{bulletPoints.map((bullet, index) => (
+										<div key={index} className="flex gap-2 items-center">
+											<span className="text-gray-600">•</span>
+											<input
+												type="text"
+												className="flex-1 border border-gray-300 rounded-md px-3 py-2 text-sm"
+												value={bullet}
+												onChange={(e) => updateBulletPoint(index, e.target.value)}
+												placeholder="Enter bullet point..."
+											/>
+											{bulletPoints.length > 1 && (
+												<button
+													type="button"
+													onClick={() => removeBulletPoint(index)}
+													className="text-red-500 hover:text-red-700 px-2 py-1"
+												>
+													×
+												</button>
+											)}
+										</div>
+									))}
+									<button
+										type="button"
+										onClick={addBulletPoint}
+										className="text-sm text-blue-600 hover:text-blue-800 flex items-center gap-1"
+									>
+										+ Add bullet point
+									</button>
+									{bulletPoints.some(bp => bp.trim()) && (
+										<div className="mt-3 p-3 bg-gray-50 rounded-md">
+											<label className="block text-xs text-gray-500 mb-2">Preview:</label>
+											<div className="text-sm text-gray-700 whitespace-pre-line">
+												{generateDescription()}
+											</div>
+										</div>
+									)}
+								</div>
+							)}
+						</div>
 					</div>
 					<div className="grid grid-cols-2 gap-3">
 						<div>

@@ -3,7 +3,7 @@ import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { auth } from '../../firebase'
 
-const ALLOWED_ADMIN_EMAILS = ['vedant.purkar05@gmail.com']
+const ALLOWED_ADMIN_EMAILS = ['vedant.purkar05@gmail.com', 'chavanjewellers@gmail.com']
 
 export function AdminLayout() {
 	const [checking, setChecking] = useState(true)

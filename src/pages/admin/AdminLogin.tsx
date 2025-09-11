@@ -14,11 +14,49 @@ export function AdminLogin() {
 		e.preventDefault()
 		setError(null)
 		setLoading(true)
+		
+		console.log('Attempting login with:', { email, password: '***' })
+		console.log('Firebase config check:', {
+			apiKey: import.meta.env.VITE_FIREBASE_API_KEY ? 'Set' : 'Missing',
+			authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN ? 'Set' : 'Missing',
+			projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID ? 'Set' : 'Missing'
+		})
+		
 		try {
-			await signInWithEmailAndPassword(auth, email, password)
+			const userCredential = await signInWithEmailAndPassword(auth, email, password)
+			console.log('Login successful:', userCredential.user.email)
 			navigate('/admin')
 		} catch (err: any) {
-			const message = err?.code || err?.message || 'Login failed'
+			console.error('Login error:', err)
+			let message = 'Login failed'
+			
+			// More specific error messages
+			switch (err.code) {
+				case 'auth/user-not-found':
+					message = 'No user found with this email address'
+					break
+				case 'auth/wrong-password':
+					message = 'Incorrect password'
+					break
+				case 'auth/invalid-email':
+					message = 'Invalid email format'
+					break
+				case 'auth/user-disabled':
+					message = 'This user account has been disabled'
+					break
+				case 'auth/too-many-requests':
+					message = 'Too many failed attempts. Try again later'
+					break
+				case 'auth/network-request-failed':
+					message = 'Network error. Check your internet connection'
+					break
+				case 'auth/invalid-credential':
+					message = 'Invalid email or password'
+					break
+				default:
+					message = `${err.code}: ${err.message}`
+			}
+			
 			setError(message)
 		} finally {
 			setLoading(false)

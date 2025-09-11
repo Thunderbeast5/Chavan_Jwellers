@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { HeroCarousel } from '../components/HeroCarousel'
 import { RevealOnScroll } from '../components/RevealOnScroll'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { fetchCategories, fetchProducts, fetchSlides, fetchCompleted } from '../lib/catalog'
 
 export function HomePage() {
@@ -10,6 +10,22 @@ export function HomePage() {
   const [newArrivals, setNewArrivals] = useState<any[]>([])
   const [slides, setSlides] = useState<any[]>([])
   const [completed, setCompleted] = useState<any[]>([])
+  const categoryScrollRef = useRef<HTMLDivElement>(null)
+
+  const scrollCategories = (direction: 'left' | 'right') => {
+    if (categoryScrollRef.current) {
+      const scrollAmount = 300
+      const currentScroll = categoryScrollRef.current.scrollLeft
+      const newScroll = direction === 'left' 
+        ? currentScroll - scrollAmount 
+        : currentScroll + scrollAmount
+      
+      categoryScrollRef.current.scrollTo({
+        left: newScroll,
+        behavior: 'smooth'
+      })
+    }
+  }
 
   useEffect(() => {
     fetchCategories().then((v) => setCats(v as any))
@@ -34,35 +50,62 @@ export function HomePage() {
       {/* Featured Categories */}
       <section className="container-px max-w-7xl mx-auto py-12">
         <h3 className="section-title mb-6">Shop By Category</h3>
-        <div className="flex gap-4 md:gap-6 overflow-x-auto scrollbar-hide pb-4">
-          {cats.slice(0, 6).map(c => (
-            <RevealOnScroll key={c.slug}>
-              <Link to={`/category/${c.slug}`} className="block flex-shrink-0 w-48 md:w-64 h-64 md:h-80">
-                <div className="relative group w-full h-full">
-                  {/* Flip container - only for the image area */}
-                  <div className="relative w-full h-48 md:h-64 transition-transform duration-500 transform-style-preserve-3d group-hover:rotate-y-180">
-                    {/* Front of image */}
-                    <div className="absolute inset-0 backface-hidden">
-                      <div className="w-full h-full bg-muted rounded-lg overflow-hidden">
-                        <img src={c.image} alt={c.name} className="w-full h-full object-cover" />
+        <div className="relative">
+          {/* Left scroll button */}
+          <button
+            onClick={() => scrollCategories('left')}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all duration-200 hover:scale-110"
+            aria-label="Scroll left"
+          >
+            <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          {/* Right scroll button */}
+          <button
+            onClick={() => scrollCategories('right')}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all duration-200 hover:scale-110"
+            aria-label="Scroll right"
+          >
+            <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+
+          <div 
+            ref={categoryScrollRef}
+            className="flex gap-4 md:gap-6 overflow-x-auto scrollbar-hide pb-4 px-12"
+          >
+            {cats.slice(0, 6).map(c => (
+              <RevealOnScroll key={c.slug}>
+                <Link to={`/category/${c.slug}`} className="block flex-shrink-0 w-48 md:w-64 h-64 md:h-80">
+                  <div className="relative group w-full h-full">
+                    {/* Flip container - only for the image area */}
+                    <div className="relative w-full h-48 md:h-64 transition-transform duration-500 transform-style-preserve-3d group-hover:rotate-y-180">
+                      {/* Front of image */}
+                      <div className="absolute inset-0 backface-hidden">
+                        <div className="w-full h-full bg-muted rounded-lg overflow-hidden">
+                          <img src={c.image} alt={c.name} className="w-full h-full object-cover" />
+                        </div>
+                      </div>
+                      
+                      {/* Back of image */}
+                      <div className="absolute inset-0 backface-hidden rotate-y-180 bg-white rounded-lg border-2 border-amber-200 flex items-center justify-center">
+                        <div className="text-center text-[#4b0e55]">
+                          <div className="text-xl font-semibold mb-2">Explore Category</div>
+                          <div className="text-sm opacity-90">{c.name}</div>
+                        </div>
                       </div>
                     </div>
                     
-                    {/* Back of image */}
-                    <div className="absolute inset-0 backface-hidden rotate-y-180 bg-white rounded-lg border-2 border-amber-200 flex items-center justify-center">
-                      <div className="text-center text-[#4b0e55]">
-                        <div className="text-xl font-semibold mb-2">Explore Category</div>
-                        <div className="text-sm opacity-90">{c.name}</div>
-                      </div>
-                    </div>
+                    {/* Category name - stays fixed below */}
+                    <div className="mt-3 text-center text-base font-medium">{c.name}</div>
                   </div>
-                  
-                  {/* Category name - stays fixed below */}
-                  <div className="mt-3 text-center text-base font-medium">{c.name}</div>
-                </div>
-              </Link>
-            </RevealOnScroll>
-          ))}
+                </Link>
+              </RevealOnScroll>
+            ))}
+          </div>
         </div>
       </section>
 
