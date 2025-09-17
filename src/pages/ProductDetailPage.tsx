@@ -32,7 +32,11 @@ export function ProductDetailPage() {
       <div>
         <h1 className="text-2xl font-semibold">{product.name}</h1>
         <div className="mt-2 text-lg"><span className="text-gray-400 line-through mr-2">₹{product.mrp}</span><span className="text-gray-900 font-semibold">₹{product.price}</span></div>
-        <p className="mt-4 text-gray-700">{product.description}</p>
+        <div className="mt-4 text-gray-700">
+          {product.description.split('\n').map((line, index) => (
+            <div key={index}>{line}</div>
+          ))}
+        </div>
         <a className="btn-primary mt-6" href={waLink(product.name, product.price)} target="_blank" rel="noreferrer">Buy Now on WhatsApp</a>
       </div>
     </div>
